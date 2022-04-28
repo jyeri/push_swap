@@ -20,6 +20,7 @@ void	print_stacks(t_stacks *stack1, t_stacks *stack2)
 	int	i;
 
 	i = 0;
+	printf("s1 act: %d s2 act: %d\n", stack1->actualsize, stack2->actualsize);
 	while (i < stack1->actualsize)
 	{
 		printf("stack A[%d]: %d\n", i, stack1->stack[i]);
@@ -70,20 +71,22 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 	int	nm;
 
 	nm = 0;
-	i = 1;
+	i = 0;
 
-	while (argv[i])
+	while (i < argc - 1)
 	{
-		nm = (int)atoi(argv[i]);
-		stack1->stack[i - 1] = nm;
+		nm = (int)atoi(argv[i + 1]);
+		stack1->stack[i] = nm;
 		i++;
+		printf("s1[i-1]: %d\n", stack1->stack[i - 1]);
 		//check doubles on stack1
 //		if (doublecheck(stack1, i))
 //			printf("error in doubles");
 	}
-	stack1->stacksize = i - 1;
-	stack1->actualsize = i - 1;
-	stack2->stacksize = i - 1;
+	printf ("i is: %d\n", i);
+	stack1->stacksize = i;
+	stack1->actualsize = i;
+	stack2->stacksize = i;
 	stack2->actualsize = 0;
 }
 
@@ -102,24 +105,27 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 //}
 
 
-int	main(int argc, char **argv)
-{
-	t_stacks	stack1;
-	t_stacks	stack2;
-	char		*line;
-
-	if (argc > 1)
-		init_stack(argc, argv, &stack1, &stack2);
-	while (get_next_line(0, &line) > 0)
-		solve(&stack1, &stack2, line);
-	//sorter function??
-	if (!(is_sorted(&stack1)) && stack2.actualsize == 0)
-		printf("VITUNJEES!\n");
-	else
-	{
-		printf("VOI EI, STACKIT ON NAIN:\n");
-		print_stacks(&stack1, &stack2);
-	}
-	//printer function??
-	//error exit function
-}
+//int	main(int argc, char **argv)
+//{
+//	t_stacks	stack1;
+//	t_stacks	stack2;
+//	char		*line;
+//
+//	if (argc > 1)
+//		init_stack(argc, argv, &stack1, &stack2);
+//	while (get_next_line(0, &line) > 0)
+//		solve(&stack1, &stack2, line);
+//	//sorter function??
+//	if (!(is_sorted(&stack1)) && stack2.actualsize == 0)
+//	{
+//		printf("VITUNJEES!\n");
+//		print_stacks(&stack1, &stack2);
+//	}
+//	else
+//	{
+//		printf("VOI EI, STACKIT ON NAIN:\n");
+//		print_stacks(&stack1, &stack2);
+//	}
+//	//printer function??
+//	//error exit function
+//}

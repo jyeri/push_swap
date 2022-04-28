@@ -20,3 +20,12 @@ int	rr(t_stacks *stack1, t_stacks *stack2);
 int	rra(t_stacks *stack1);
 int	rrb(t_stacks *stack2);
 int	rrr(t_stacks *stack1, t_stacks *stack2);
+
+//checker.c
+void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2);
+void	print_stacks(t_stacks *stack1, t_stacks *stack2);
+int		is_sorted(t_stacks *stack);
+
+//push_swap.c
+int		solver(t_stacks *stack1, t_stacks *stack2);
+int		sort_b(t_stacks *stack1, t_stacks *stack2);

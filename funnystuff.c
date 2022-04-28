@@ -33,7 +33,7 @@ void	reverse_rotate(t_stacks *stack)
 	int	tmp;
 	int i;
 
-	i = stack->actualsize;
+	i = stack->actualsize - 1;
 	tmp = stack->stack[stack->actualsize - 1];
 	while (i > 0)
 	{
@@ -71,8 +71,8 @@ int pa(t_stacks *stack1, t_stacks *stack2)
 	int			tmp;
 	int			j;
 
-	j = stack1->actualsize - 1;
-	if (stack2->actualsize - 1 > 0)
+	j = stack1->actualsize;
+	if (stack2->actualsize > 0)
 	{
 		tmp = stack2->stack[0];
 		while (j > 0)
@@ -85,6 +85,7 @@ int pa(t_stacks *stack1, t_stacks *stack2)
 		while (j < stack2->actualsize - 1)
 		{
 			stack2->stack[j] = stack2->stack[j + 1];
+			j++;
 		}
 		stack1->actualsize++;
 		stack2->actualsize--;
