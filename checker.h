@@ -6,6 +6,7 @@ typedef struct s_stacks
 	int stack[10000];
 	int	stacksize;
 	int actualsize;
+	int ainst;
 
 }	t_stacks;
 

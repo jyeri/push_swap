@@ -78,16 +78,16 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 		nm = (int)atoi(argv[i + 1]);
 		stack1->stack[i] = nm;
 		i++;
-		printf("s1[i-1]: %d\n", stack1->stack[i - 1]);
 		//check doubles on stack1
 //		if (doublecheck(stack1, i))
 //			printf("error in doubles");
 	}
-	printf ("i is: %d\n", i);
 	stack1->stacksize = i;
 	stack1->actualsize = i;
 	stack2->stacksize = i;
 	stack2->actualsize = 0;
+	stack1->ainst = 0;
+	stack1->ainst = 0;
 }
 
 //int	doublecheck (t_stacks *stack1, int i)

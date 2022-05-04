@@ -31,6 +31,21 @@ int	is_dec_sorted(t_stacks *stack)
 	return (0);
 }
 
+int get_low(t_stacks *stack)
+{
+	int low;
+	int i;
+
+	low = stack->stack[i];
+	while (stack->stack[i])
+	{
+		if (stack->stack[i] < low)
+			low = stack->stack[i];
+		i++;
+	}
+	return (low);
+}
+
 int	get_median(t_stacks *stack, int size)
 {
 	int tmp[1000];
@@ -52,7 +67,6 @@ int	get_median(t_stacks *stack, int size)
 	}
 	tmp[size] = '\0';
 	med = tmp[size / 2];
-	sleep(1);
 	return(med);
 }
 
@@ -85,23 +99,133 @@ int	solver(t_stacks *stack1, t_stacks *stack2)
 		}
 		median = get_median(stack1, stack1->actualsize);
 		pushed = 0;
-		print_stacks(stack1, stack2);
-//		if (stack2->actualsize > 2)
-//			sort_b(stack1, stack2);
 	}
 	sort_b(stack1, stack2);
 	while (stack2->actualsize > 0)
 	{
 		pa(stack1, stack2);
-		print_stacks(stack1, stack2);
 	}
 
 	return (0);
 }
 
+int get_top(t_stacks *stack, int qmed)
+{
+	int i;
+
+	i = 0;
+	while (stack->stack[i] > qmed)
+		i++;
+	return (i);
+}
+
+int get_bottom(t_stacks *stack1, int qmed)
+{
+	int i;
+	int j;
+
+	j = stack1->actualsize - 1;
+	i = 1;
+	while (stack1->stack[j] > qmed)
+	{
+		j--;
+		i++;
+	}
+	return (i);
+}
+
+int	get_big_median(t_stacks *stack, int size)
+{
+	int tmp[1000];
+	int i = 0;
+	int j;
+	int med;
+
+	ft_bzero(tmp, size);
+	while (i < size)
+	{
+		j = i - 1;
+		while (j >= 0 && tmp[j] > stack->stack[i])
+		{
+			tmp[j + 1] = tmp[j];
+			j--;
+		}
+		tmp[j + 1] = stack->stack[i];
+		i++;
+	}
+	tmp[size] = '\0';
+	med = tmp[size / 4];
+	return(med);
+}
+
+int	solver500plus(t_stacks *stack1, t_stacks *stack2)
+{
+	int qmed;
+	int pushed;
+	int top;
+	int bottom;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	pushed = 0;
+	qmed = get_big_median(stack1, stack1->actualsize);
+	top = get_top(stack1, qmed);
+	bottom = get_bottom(stack1, qmed);
+	while (stack1->actualsize > 1)
+	{
+		while (pushed < (stack1->actualsize / 2))
+		{
+			if (top < bottom)
+				while (top > 0)
+				{
+					ra(stack1);
+					top--;
+				}
+			else
+				while (bottom > 0)
+				{
+					rra(stack1);
+					bottom--;
+				}
+			if (stack2->actualsize > 1)
+			{
+				if (get_low(stack2) < stack1->stack[0])
+				{
+					if (stack2->actualsize < 3 || stack2->stack[0] < stack2->stack[1])
+					{
+						print_stacks(stack1, stack2);
+						sb(stack2);
+					}
+					while (get_high(stack2) != stack2->stack[0])
+					{
+						print_stacks(stack1, stack2);			
+						rb(stack2);
+					}
+				}
+			}
+			if (stack1->stack[0] <= qmed)
+				pb(stack1, stack2);
+			pushed++;
+			top = get_top(stack1, qmed);
+			bottom = get_bottom(stack1, qmed);
+		}
+		qmed = get_big_median(stack1, stack1->actualsize);
+		top = get_top(stack1, qmed);
+		bottom = get_bottom(stack1, qmed);
+		pushed = 0;
+	}
+	sort_b(stack1, stack2);
+	while (stack2->actualsize > 0)
+	{
+		pa(stack1, stack2);
+	}
+	return (0);
+}
+
 int	sort_b(t_stacks *stack1, t_stacks *stack2)
 {
-	printf("B SORT\n");
 	int high;
 	high = get_high(stack2);
 	while (stack2->actualsize > 0)
@@ -112,16 +236,7 @@ int	sort_b(t_stacks *stack1, t_stacks *stack2)
 		}
 		pa(stack1, stack2);
 		high = get_high(stack2);
-		print_stacks(stack1, stack2);
 	}
-//	while (is_dec_sorted(stack2))
-//	{
-//		if (stack2->stack[0] < stack2->stack[1])
-//			rb(stack2);
-//		else
-//			sb(stack2);
-//		print_stacks(stack1, stack2);
-//	}
 	return (0);
 }
 
@@ -129,11 +244,13 @@ int	main(int argc, char **argv)
 {
 	t_stacks	stack1;
 	t_stacks	stack2;
+	int			total;
 
 	if (argc > 1)
 		init_stack(argc, argv, &stack1, &stack2);
 //	while (get_next_line(0, &line) > 0)
-	solver(&stack1, &stack2);
+	print_stacks(&stack1, &stack2);
+	solver500plus(&stack1, &stack2);
 	//sorter function??
 //	if (!(is_sorted(&stack1)) && stack2.actualsize == 0)
 //		printf("VITUNJEES!\n");
@@ -143,6 +260,8 @@ int	main(int argc, char **argv)
 //		print_stacks(&stack1, &stack2);
 //	}
 	print_stacks(&stack1, &stack2);
+	total = stack1.ainst + stack2.ainst;
+	printf("\n--------------------\nAMOUNT OF INST : %d\n--------------------\n", total);
 	//printer function??
 	//error exit function
 	return 0;
