@@ -36,6 +36,7 @@ int get_low(t_stacks *stack)
 	int low;
 	int i;
 
+	i = 0;
 	low = stack->stack[i];
 	while (stack->stack[i])
 	{
@@ -114,7 +115,7 @@ int get_top(t_stacks *stack, int qmed)
 	int i;
 
 	i = 0;
-	while (stack->stack[i] > qmed)
+	while (stack->stack[i] >= qmed)
 		i++;
 	return (i);
 }
@@ -126,7 +127,32 @@ int get_bottom(t_stacks *stack1, int qmed)
 
 	j = stack1->actualsize - 1;
 	i = 1;
-	while (stack1->stack[j] > qmed)
+	while (stack1->stack[j] >= qmed)
+	{
+		j--;
+		i++;
+	}
+	return (i);
+}
+
+int get_b_top(t_stacks *stack, int key)
+{
+	int i;
+
+	i = 0;
+	while (stack->stack[i] != key)
+		i++;
+	return (i);
+}
+
+int get_b_bottom(t_stacks *stack1, int key)
+{
+	int i;
+	int j;
+
+	j = stack1->actualsize - 1;
+	i = 1;
+	while (stack1->stack[j] != key)
 	{
 		j--;
 		i++;
@@ -154,7 +180,12 @@ int	get_big_median(t_stacks *stack, int size)
 		i++;
 	}
 	tmp[size] = '\0';
-	med = tmp[size / 4];
+	if (size < 20)
+	{
+		med = tmp[size - 1];
+	}
+	else
+		med = tmp[20];
 	return(med);
 }
 
@@ -164,6 +195,7 @@ int	solver500plus(t_stacks *stack1, t_stacks *stack2)
 	int pushed;
 	int top;
 	int bottom;
+	int low;
 	int i;
 	int j;
 
@@ -175,7 +207,8 @@ int	solver500plus(t_stacks *stack1, t_stacks *stack2)
 	bottom = get_bottom(stack1, qmed);
 	while (stack1->actualsize > 1)
 	{
-		while (pushed < (stack1->actualsize / 2))
+		low = get_low(stack2);
+		while (pushed < 19)
 		{
 			if (top < bottom)
 				while (top > 0)
@@ -191,34 +224,61 @@ int	solver500plus(t_stacks *stack1, t_stacks *stack2)
 				}
 			if (stack2->actualsize > 1)
 			{
-				if (get_low(stack2) < stack1->stack[0])
+				while (stack2->stack[0] != low)
 				{
-					if (stack2->actualsize < 3 || stack2->stack[0] < stack2->stack[1])
-					{
-						print_stacks(stack1, stack2);
-						sb(stack2);
-					}
-					while (get_high(stack2) != stack2->stack[0])
-					{
-						print_stacks(stack1, stack2);			
-						rb(stack2);
-					}
+					rb(stack2);
 				}
 			}
 			if (stack1->stack[0] <= qmed)
+			{
 				pb(stack1, stack2);
-			pushed++;
+				pushed++;
+			}
+			printf("\nVALUES\n-----------\n pushed: %d\n low: %d\n top:%d\n bot:%d\n med: %d\n s1: %d\n s1act: %d\n s1size: %d\n\n", pushed, get_low(stack1),top, bottom, qmed, stack1->stack[0], stack1->actualsize, stack1->stacksize);
+			print_stacks(stack1, stack2);
 			top = get_top(stack1, qmed);
 			bottom = get_bottom(stack1, qmed);
+			low = get_low(stack2);
+			printf("\nVALUES\n-----------\n pushed: %d\n low: %d\n top:%d\n bot:%d\n med: %d\n s1: %d\n s1act: %d\n s1size: %d\n\n", pushed, get_low(stack1),top, bottom, qmed, stack1->stack[0], stack1->actualsize, stack1->stacksize);
 		}
 		qmed = get_big_median(stack1, stack1->actualsize);
 		top = get_top(stack1, qmed);
 		bottom = get_bottom(stack1, qmed);
 		pushed = 0;
 	}
-	sort_b(stack1, stack2);
+	sort_big_b(stack1, stack2);
+	return (0);
+}
+
+int	sort_big_b(t_stacks *stack1, t_stacks *stack2)
+{
+	int pushed;
+	int high;
+	int i;
+	int j;
+	int top;
+	int bottom;
+
+	i = 0;
+	j = 0;
+	pushed = 0;
 	while (stack2->actualsize > 0)
 	{
+		high = get_high(stack2);
+		top = get_b_top(stack2, high);
+		bottom = get_b_bottom(stack2, high);
+		if (top < bottom)
+			while (top > 0)
+			{
+				ra(stack2);
+				top--;
+			}
+		else
+			while (bottom > 0)
+			{
+				rra(stack2);
+				bottom--;
+			}
 		pa(stack1, stack2);
 	}
 	return (0);

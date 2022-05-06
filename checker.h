@@ -30,3 +30,4 @@ int		is_sorted(t_stacks *stack);
 //push_swap.c
 int		solver(t_stacks *stack1, t_stacks *stack2);
 int		sort_b(t_stacks *stack1, t_stacks *stack2);
+int		sort_big_b(t_stacks *stack1, t_stacks *stack2);
