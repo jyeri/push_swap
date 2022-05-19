@@ -15,18 +15,49 @@ int		is_sorted(t_stacks *stack)
 	return (0);
 }
 
+int		doublecheck(t_stacks *stack)
+{
+	int tmp[1000];
+	int i;
+	int j;
+
+	i = 0;
+	ft_bzero(tmp, stack->actualsize);
+	while (i < stack->actualsize)
+	{
+		j = i - 1;
+		while (j >= 0 && tmp[j] > stack->stack[i])
+		{
+			tmp[j + 1] = tmp[j];
+			j--;
+		}
+		tmp[j + 1] = stack->stack[i];
+		i++;
+	}
+	tmp[stack->actualsize] = '\0';
+	i = 0;
+	while (i < stack->actualsize)
+	{
+		if (tmp[i] == tmp[i + 1])
+			return (1);
+		i++; 
+	}
+	return 0;
+}
+
 void	print_stacks(t_stacks *stack1, t_stacks *stack2)
 {
 	int	i;
 
 	i = 0;
-	printf("s1 act: %d s2 act: %d\n", stack1->actualsize, stack2->actualsize);
+	printf("\n-------------------------------------------\n");
 	while (i < stack1->actualsize)
 	{
 		printf("stack A[%d]: %d\n", i, stack1->stack[i]);
 		i++;
 	}
 	i = 0;
+	printf("\n-------------------------------------------\n");
 	while (i < stack2->actualsize)
 	{
 		printf("stack B[%d]: %d\n", i, stack2->stack[i]);
@@ -78,31 +109,20 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 		nm = (int)atoi(argv[i + 1]);
 		stack1->stack[i] = nm;
 		i++;
-		//check doubles on stack1
-//		if (doublecheck(stack1, i))
-//			printf("error in doubles");
 	}
 	stack1->stacksize = i;
 	stack1->actualsize = i;
+	if (doublecheck(stack1) != 0)
+	{
+		ft_putstr("Error\n");
+		exit(-1);
+	}
 	stack2->stacksize = i;
 	stack2->actualsize = 0;
 	stack1->ainst = 0;
 	stack1->ainst = 0;
 }
 
-//int	doublecheck (t_stacks *stack1, int i)
-//{
-//	int	j;
-//
-//	j = 0;
-//	while (i > j)
-//	{
-//		//check the doubles
-//		if (blaablaablaa)
-//			return (1);
-//	}
-//	return (0);
-//}
 
 
 //int	main(int argc, char **argv)
@@ -118,12 +138,12 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 //	//sorter function??
 //	if (!(is_sorted(&stack1)) && stack2.actualsize == 0)
 //	{
-//		printf("VITUNJEES!\n");
+//		printf("OK!\n");
 //		print_stacks(&stack1, &stack2);
 //	}
 //	else
 //	{
-//		printf("VOI EI, STACKIT ON NAIN:\n");
+//		printf("KO:\n");
 //		print_stacks(&stack1, &stack2);
 //	}
 //	//printer function??

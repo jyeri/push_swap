@@ -167,8 +167,8 @@ int	get_big_median(t_stacks *stack, int size)
 	int j;
 	int med;
 
-	ft_bzero(tmp, size);
-	while (i < size)
+	ft_bzero(tmp, stack->actualsize);
+	while (i < stack->actualsize)
 	{
 		j = i - 1;
 		while (j >= 0 && tmp[j] > stack->stack[i])
@@ -179,14 +179,79 @@ int	get_big_median(t_stacks *stack, int size)
 		tmp[j + 1] = stack->stack[i];
 		i++;
 	}
-	tmp[size] = '\0';
-	if (size < 20)
+	tmp[stack->actualsize] = '\0';
+	if (stack->actualsize < size + 1)
 	{
-		med = tmp[size - 1];
+		med = get_high(stack);
+//		printf("MED IS NOW: %d\n", med);
+//		sleep (1);
 	}
 	else
-		med = tmp[20];
+	{
+		med = tmp[size];
+//		printf("MED IS NOW: %d\n", med);
+	}
 	return(med);
+}
+
+int	sortsmallish(t_stacks *stack1, t_stacks *stack2, int low, int high)
+{
+	while (stack1->actualsize > 3)
+	{
+		if (stack1->stack[0] == high || stack1->stack[0] == low)
+			pb(stack1, stack2);
+		else
+			ra(stack1);
+	}
+	solversmall(stack1, stack2);
+	while(is_sorted(stack1) != 0 || stack2->actualsize > 0)
+	{
+		if (stack2->stack[0] == high)
+		{
+			pa(stack1, stack2);
+			ra(stack1);
+		}
+		else
+			pa(stack1, stack2);
+	}
+	return 0;
+}
+
+int	solversmall(t_stacks *stack1, t_stacks *stack2)
+{
+	int low;
+	int high;
+
+	low = get_low(stack1);
+	high = get_high(stack1);
+	if (stack1->actualsize < 4)
+	{
+		while(is_sorted(stack1))
+		{
+			if(stack1->stack[stack1->actualsize - 1] == high)
+				sa(stack1);
+			else if(stack1->stack[0] == high)
+			{
+				if (stack1->stack[stack1->actualsize - 1] == low)
+				{
+					sa(stack1);
+					rra(stack1);
+				}
+				else
+					ra(stack1);
+			}
+			else if (stack1->stack[0] == low)
+			{
+				sa(stack1);
+				ra(stack1);
+			}
+			else
+				rra(stack1);
+		}
+	}
+	else
+		sortsmallish(stack1, stack2, low, high);
+	return (0);
 }
 
 int	solver500plus(t_stacks *stack1, t_stacks *stack2)
@@ -198,50 +263,66 @@ int	solver500plus(t_stacks *stack1, t_stacks *stack2)
 	int low;
 	int i;
 	int j;
+	int chunksize;
 
 	i = 0;
 	j = 0;
 	pushed = 0;
-	qmed = get_big_median(stack1, stack1->actualsize);
+	if (stack1->actualsize > 499)
+		chunksize = stack1->actualsize / 11;
+	else if (stack1->actualsize > 99)
+		chunksize = stack1->actualsize / 5;
+	else
+		chunksize = stack1->actualsize / 2;
+	qmed = get_big_median(stack1, chunksize);
 	top = get_top(stack1, qmed);
 	bottom = get_bottom(stack1, qmed);
 	while (stack1->actualsize > 1)
 	{
 		low = get_low(stack2);
-		while (pushed < 19)
+		while (pushed < chunksize)
 		{
 			if (top < bottom)
 				while (top > 0)
 				{
-					ra(stack1);
+					if (top == 1 && stack2->actualsize > 1 && stack2->stack[0] < stack2->stack[1])
+						ss(stack1, stack2);
+					else
+					{
+						if (stack2->stack[0] == low && stack2->actualsize > 1)
+							rr(stack1, stack2);
+						else
+							ra(stack1);
+					}
 					top--;
 				}
 			else
 				while (bottom > 0)
 				{
-					rra(stack1);
+					if (top == 1 && stack2->actualsize > 1 && stack2->stack[0] < stack2->stack[1])
+						ss(stack1, stack2);
+					else
+					{
+						if (stack2->stack[0] == low && stack2->actualsize > 1)
+							rrr(stack1, stack2);
+						else
+							rra(stack1);
+					}
 					bottom--;
 				}
-			if (stack2->actualsize > 1)
-			{
-				while (stack2->stack[0] != low)
-				{
-					rb(stack2);
-				}
-			}
 			if (stack1->stack[0] <= qmed)
 			{
 				pb(stack1, stack2);
 				pushed++;
 			}
-			printf("\nVALUES\n-----------\n pushed: %d\n low: %d\n top:%d\n bot:%d\n med: %d\n s1: %d\n s1act: %d\n s1size: %d\n\n", pushed, get_low(stack1),top, bottom, qmed, stack1->stack[0], stack1->actualsize, stack1->stacksize);
-			print_stacks(stack1, stack2);
+//			printf("\nVALUES\n-----------\n pushed: %d\n low: %d\n top:%d\n bot:%d\n med: %d\n s1: %d\n s1act: %d\n s1size: %d\n\n", pushed, get_low(stack1),top, bottom, qmed, stack1->stack[0], stack1->actualsize, stack1->stacksize);
+//			print_stacks(stack1, stack2);
 			top = get_top(stack1, qmed);
 			bottom = get_bottom(stack1, qmed);
 			low = get_low(stack2);
-			printf("\nVALUES\n-----------\n pushed: %d\n low: %d\n top:%d\n bot:%d\n med: %d\n s1: %d\n s1act: %d\n s1size: %d\n\n", pushed, get_low(stack1),top, bottom, qmed, stack1->stack[0], stack1->actualsize, stack1->stacksize);
+//			printf("\nVALUES\n-----------\n pushed: %d\n low: %d\n top:%d\n bot:%d\n med: %d\n s1: %d\n s1act: %d\n s1size: %d\n\n", pushed, get_low(stack1),top, bottom, qmed, stack1->stack[0], stack1->actualsize, stack1->stacksize);
 		}
-		qmed = get_big_median(stack1, stack1->actualsize);
+		qmed = get_big_median(stack1, chunksize);
 		top = get_top(stack1, qmed);
 		bottom = get_bottom(stack1, qmed);
 		pushed = 0;
@@ -310,7 +391,13 @@ int	main(int argc, char **argv)
 		init_stack(argc, argv, &stack1, &stack2);
 //	while (get_next_line(0, &line) > 0)
 	print_stacks(&stack1, &stack2);
-	solver500plus(&stack1, &stack2);
+	if (is_sorted(&stack1) != 0)
+	{
+		if (stack1.actualsize < 6)
+			solversmall(&stack1, &stack2);
+		else
+			solver500plus(&stack1, &stack2);
+	}
 	//sorter function??
 //	if (!(is_sorted(&stack1)) && stack2.actualsize == 0)
 //		printf("VITUNJEES!\n");
