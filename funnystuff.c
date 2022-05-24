@@ -5,7 +5,7 @@ void	swap(t_stacks *stack)
 {
 	int	tmp;
 
-	if (stack->actualsize > 2)
+	if (stack->actualsize > 1)
 	{
 		tmp = stack->stack[0];
 		stack->stack[0] = stack->stack[1];
