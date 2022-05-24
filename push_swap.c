@@ -6,6 +6,7 @@ int	get_high(t_stacks *stack)
 	int i;
 	int hold;
 
+	hold = 0;
 	i = 0;
 	while (i < stack->actualsize)
 	{
@@ -390,7 +391,7 @@ int	main(int argc, char **argv)
 	if (argc > 1)
 		init_stack(argc, argv, &stack1, &stack2);
 //	while (get_next_line(0, &line) > 0)
-	print_stacks(&stack1, &stack2);
+//	print_stacks(&stack1, &stack2);
 	if (is_sorted(&stack1) != 0)
 	{
 		if (stack1.actualsize < 6)
@@ -408,7 +409,7 @@ int	main(int argc, char **argv)
 //	}
 	print_stacks(&stack1, &stack2);
 	total = stack1.ainst + stack2.ainst;
-	printf("\n--------------------\nAMOUNT OF INST : %d\n--------------------\n", total);
+//	printf("\n--------------------\nAMOUNT OF INST : %d\n--------------------\n", total);
 	//printer function??
 	//error exit function
 	return 0;

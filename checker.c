@@ -96,6 +96,23 @@ void	solve(t_stacks *stack1, t_stacks *stack2, char *ins)
 	}
 }
 
+
+int	ft_digitss(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] <= '9' && str[i] >= '0')
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
+
+
 void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 {
 	int	i;
@@ -106,7 +123,12 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 
 	while (i < argc - 1)
 	{
-		nm = (int)atoi(argv[i + 1]);
+		if (ft_digitss(argv[i + 1]))
+		{
+			ft_putstr("Error\n");
+			exit (-1);
+		}
+		nm = (int)ft_atoi(argv[i + 1]);
 		stack1->stack[i] = nm;
 		i++;
 	}
