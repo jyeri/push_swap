@@ -120,7 +120,8 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 
 	nm = 0;
 	i = 0;
-
+	ft_bzero(stack1->stack, 10000);
+	ft_bzero(stack2->stack, 10000);
 	while (i < argc - 1)
 	{
 		if (ft_digitss(argv[i + 1]))
@@ -132,7 +133,6 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 		stack1->stack[i] = nm;
 		i++;
 	}
-	stack1->stacksize = i;
 	stack1->actualsize = i;
 	if (doublecheck(stack1) != 0)
 	{

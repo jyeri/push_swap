@@ -116,7 +116,7 @@ int get_top(t_stacks *stack, int qmed)
 	int i;
 
 	i = 0;
-	while (stack->stack[i] >= qmed)
+	while (i <= stack->actualsize && stack->stack[i] >= qmed)
 		i++;
 	return (i);
 }
@@ -128,7 +128,7 @@ int get_bottom(t_stacks *stack1, int qmed)
 
 	j = stack1->actualsize - 1;
 	i = 1;
-	while (stack1->stack[j] >= qmed)
+	while (j > 0 && stack1->stack[j] >= qmed)
 	{
 		j--;
 		i++;
@@ -166,7 +166,7 @@ int	get_big_median(t_stacks *stack, int size)
 	int tmp[1000];
 	int i = 0;
 	int j;
-	int med;
+	int med = 0;
 
 	ft_bzero(tmp, stack->actualsize);
 	while (i < stack->actualsize)
@@ -278,7 +278,7 @@ int	solver500plus(t_stacks *stack1, t_stacks *stack2)
 	qmed = get_big_median(stack1, chunksize);
 	top = get_top(stack1, qmed);
 	bottom = get_bottom(stack1, qmed);
-	while (stack1->actualsize > 1)
+	while (stack1->actualsize > 0)
 	{
 		low = get_low(stack2);
 		while (pushed < chunksize)
@@ -286,7 +286,7 @@ int	solver500plus(t_stacks *stack1, t_stacks *stack2)
 			if (top < bottom)
 				while (top > 0)
 				{
-					if (top == 1 && stack2->actualsize > 1 && stack2->stack[0] < stack2->stack[1])
+					if (top == 1 && stack2->actualsize > 1 && stack2->stack[0] < stack2->stack[1] && stack1->actualsize > 1)
 						ss(stack1, stack2);
 					else
 					{
@@ -352,13 +352,13 @@ int	sort_big_b(t_stacks *stack1, t_stacks *stack2)
 		if (top < bottom)
 			while (top > 0)
 			{
-				ra(stack2);
+				rb(stack2);
 				top--;
 			}
 		else
 			while (bottom > 0)
 			{
-				rra(stack2);
+				rrb(stack2);
 				bottom--;
 			}
 		pa(stack1, stack2);
@@ -409,7 +409,7 @@ int	main(int argc, char **argv)
 //	}
 	print_stacks(&stack1, &stack2);
 	total = stack1.ainst + stack2.ainst;
-//	printf("\n--------------------\nAMOUNT OF INST : %d\n--------------------\n", total);
+	printf("\n--------------------\nAMOUNT OF INST : %d\n--------------------\n", total);
 	//printer function??
 	//error exit function
 	return 0;
