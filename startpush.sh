@@ -1,0 +1,1 @@
+gcc push_swap.c swap_funcs.c check_funcs.c funnystuff.c gnl/get_next_line.c libft/libft.a -o push_swap

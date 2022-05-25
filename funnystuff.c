@@ -49,8 +49,8 @@ int	sa(t_stacks *stack1)
 	//do nothing if array size of 1 or less
 	swap(stack1);
 	stack1->ainst++;
-	return (0);
 	ft_putstr("sa\n");
+	return (0);
 }
 
 int	sb(t_stacks *stack2)
@@ -137,8 +137,8 @@ int pb(t_stacks *stack1, t_stacks *stack2)
 int ra(t_stacks *stack1)
 {
 	stack1->ainst++;
-	rotate(stack1);
 	ft_putstr("ra\n");
+	rotate(stack1);
 	return (0);
 	//move every element is stack A up by one, First element -> Last element
 }
