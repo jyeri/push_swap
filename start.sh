@@ -1,1 +1,0 @@
-gcc -g push_swap.c checker.c funnystuff.c gnl/get_next_line.h libft/libft.a
