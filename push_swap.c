@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 18:52:46 by jrummuka          #+#    #+#             */
+/*   Updated: 2022/05/31 19:04:08 by jrummuka         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
 #include <stdio.h>
 
@@ -19,5 +31,5 @@ int	main(int argc, char **argv)
 		}
 		total = stack1.ainst + stack2.ainst;
 	}
-	return 0;
+	return (0);
 }

@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   helpers1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 18:52:26 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/05/31 18:52:27 by jrummuka         ###   ########.fr       */
+/*   Created: 2022/05/31 19:25:09 by jrummuka          #+#    #+#             */
+/*   Updated: 2022/05/31 19:25:18 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-#include <stdio.h>
 
-int	main(int argc, char **argv)
+void	ft_errorext(void)
 {
-	t_stacks	stack1;
-	t_stacks	stack2;
-	char		*line;
+	ft_putstr("Error\n");
+	exit(-1);
+}
 
-	if (argc > 1)
-		init_stack(argc, argv, &stack1, &stack2);
-	while (get_next_line(0, &line) > 0)
-		solve(&stack1, &stack2, line);
-	if (!(is_sorted(&stack1)) && stack2.actualsize == 0)
-		printf("OK\n");
-	else
-		printf("KO\n");
+int	is_sorted(t_stacks *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack->actualsize - 1 > i)
+	{
+		if (stack->stack[i] > stack->stack[i + 1])
+			return (1);
+		i++;
+	}
+	return (0);
 }

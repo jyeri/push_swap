@@ -1,33 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_funcs.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 18:52:21 by jrummuka          #+#    #+#             */
+/*   Updated: 2022/05/31 20:07:05 by jrummuka         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
-#include <stdio.h>
 
-void	ft_errorext()
+int	doublecheck(t_stacks *stack, int i)
 {
-	ft_putstr("Error\n");
-	exit(-1);
-}
+	int	tmp[1000];
+	int	j;
 
-int		is_sorted(t_stacks *stack)
-{
-	int	i;
-
-	i = 0;
-	while (stack->actualsize - 1 > i)
-	{
-		if (stack->stack[i] > stack->stack[i + 1])
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int		doublecheck(t_stacks *stack)
-{
-	int tmp[1000];
-	int i;
-	int j;
-
-	i = 0;
 	ft_bzero(tmp, stack->actualsize);
 	while (i < stack->actualsize)
 	{
@@ -46,30 +35,25 @@ int		doublecheck(t_stacks *stack)
 	{
 		if (tmp[i] == tmp[i + 1])
 			return (1);
-		i++; 
+		i++;
 	}
-	return 0;
+	return (0);
 }
 
-int	ft_parse_input(char *str, t_stacks *stack1)
+int	ft_parse_input(char *str, t_stacks *stack1, int i, int j)
 {
 	char	*tmp;
-	int		nm;
-	int		i;
-	int		j;
 	int		k;
 
-	j = 0;
-	i = 0;
 	k = 0;
 	tmp = (char *)malloc(sizeof(char) * 10 + 1);
 	while (str[i] != '\0')
 	{
-		while(str[i] != ' ' && str[i] != '\0')
+		while (str[i] != ' ' && str[i] != '\0')
 			tmp[j++] = str[i++];
-		while(str[i] == ' ' && str[i] != '\0')
+		while (str[i] == ' ' && str[i] != '\0')
 			i++;
-		if(!ft_digitss(tmp))
+		if (!ft_digitss(tmp))
 			stack1->stack[k++] = (int)ft_atoi(tmp);
 		else
 		{
@@ -84,32 +68,12 @@ int	ft_parse_input(char *str, t_stacks *stack1)
 	return (k);
 }
 
-void	print_stacks(t_stacks *stack1, t_stacks *stack2)
-{
-	int	i;
-
-	i = 0;
-	printf("\n-------------------------------------------\n");
-	while (i < stack1->actualsize)
-	{
-		printf("stack A[%d]: %d\n", i, stack1->stack[i]);
-		i++;
-	}
-	i = 0;
-	printf("\n-------------------------------------------\n");
-	while (i < stack2->actualsize)
-	{
-		printf("stack B[%d]: %d\n", i, stack2->stack[i]);
-		i++;
-	}
-}
-
 void	solve(t_stacks *stack1, t_stacks *stack2, char *ins)
 {
 	if (ft_strcmp("sa", ins) == 0)
-		sa(stack1);
+		sa(stack1, stack2);
 	else if (ft_strcmp("sb", ins) == 0)
-		sb(stack2);
+		sb(stack1, stack2);
 	else if (ft_strcmp("ss", ins) == 0)
 		ss(stack1, stack2);
 	else if (ft_strcmp("pa", ins) == 0)
@@ -117,68 +81,62 @@ void	solve(t_stacks *stack1, t_stacks *stack2, char *ins)
 	else if (ft_strcmp("pb", ins) == 0)
 		pb(stack1, stack2);
 	else if (ft_strcmp("ra", ins) == 0)
-		ra(stack1);
+		ra(stack1, stack2);
 	else if (ft_strcmp("rb", ins) == 0)
-		rb(stack2);
+		rb(stack1, stack2);
 	else if (ft_strcmp("rr", ins) == 0)
 		rr(stack1, stack2);
 	else if (ft_strcmp("rra", ins) == 0)
-		rra(stack1);
+		rra(stack1, stack2);
 	else if (ft_strcmp("rrb", ins) == 0)
-		rrb(stack2);
+		rrb(stack1, stack2);
 	else if (ft_strcmp("rrr", ins) == 0)
 		rrr(stack1, stack2);
 	else
-	{
-		printf("inst: |%s|\nline: |%s|\n", "sa", ins);
-		printf("invalid instruction: %s!\n", ins);
-	}
+		ft_errorext();
 }
 
-
-int	ft_digitss(char *str)
+void	init_struct(t_stacks *stack1, t_stacks *stack2, int i)
 {
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] <= '9' && str[i] >= '0')
-			i++;
-		else
-			return (1);
-	}
-	return (0);
+	stack2->stacksize = i;
+	stack2->actualsize = 0;
+	stack1->ainst = 0;
+	stack2->ainst = 0;
 }
-
 
 void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 {
 	int	i;
 	int	nm;
+	int	j;
 
 	nm = 0;
 	i = 0;
+	j = 0;
 	ft_bzero(stack1->stack, 10000);
 	ft_bzero(stack2->stack, 10000);
+	if (ft_strcmp(argv[1], "-v") == 0)
+	{
+		stack1->visual = 1;
+		stack2->visual = 1;
+		j++;
+	}
 	if (argc > 2)
 	{
-		while (i < argc - 1)
+		while (j < argc - 1)
 		{
-			if (ft_digitss(argv[i + 1]))
+			if (ft_digitss(argv[j + 1]))
 				ft_errorext();
-			nm = (int)ft_atoi(argv[i + 1]);
+			nm = (int)ft_atoi_w_intlimit(argv[j + 1]);
 			stack1->stack[i] = nm;
 			i++;
+			j++;
 		}
 	}
 	else if (argc == 2)
-		i = ft_parse_input(argv[1], stack1);
+		i = ft_parse_input(argv[j], stack1, 0, 0);
 	stack1->actualsize = i;
-	if (doublecheck(stack1) != 0)
+	if (doublecheck(stack1, 0) != 0)
 		ft_errorext();
-	stack2->stacksize = i;
-	stack2->actualsize = 0;
-	stack1->ainst = 0;
-	stack1->ainst = 0;
+	init_struct(stack1, stack2, i);
 }

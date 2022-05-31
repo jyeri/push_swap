@@ -1,1 +1,1 @@
-gcc checker.c swap_funcs.c check_funcs.c funnystuff.c gnl/get_next_line.c libft/libft.a -o checker
+gcc -Wall -Wextra -Werror checker.c do_funcs1.c do_funcs2.c basic_functions1.c basic_functions2.c helpers1.c swap_funcs.c check_funcs.c funnystuff.c funnyswapstuff.c libftfuncs.c gnl/get_next_line.c libft/libft.a -o checker
