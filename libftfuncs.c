@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 18:53:00 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/05/31 19:18:17 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:44:12 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,34 @@ int	ft_digitss(char *str)
 			i++;
 		else
 			return (1);
+	}
+	return (0);
+}
+
+int	doublecheck(t_stacks *stack, int i)
+{
+	int	tmp[1000];
+	int	j;
+
+	ft_bzero(tmp, stack->actualsize);
+	while (i < stack->actualsize)
+	{
+		j = i - 1;
+		while (j >= 0 && tmp[j] > stack->stack[i])
+		{
+			tmp[j + 1] = tmp[j];
+			j--;
+		}
+		tmp[j + 1] = stack->stack[i];
+		i++;
+	}
+	tmp[stack->actualsize] = '\0';
+	i = 0;
+	while (i < stack->actualsize)
+	{
+		if (tmp[i] == tmp[i + 1])
+			return (1);
+		i++;
 	}
 	return (0);
 }

@@ -6,38 +6,29 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 18:52:21 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/05/31 20:07:05 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:03:58 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-int	doublecheck(t_stacks *stack, int i)
+int	ft_parse_multi_input(int argc, char **argv, int j, t_stacks *stack1)
 {
-	int	tmp[1000];
-	int	j;
+	int	nm;
+	int	i;
 
-	ft_bzero(tmp, stack->actualsize);
-	while (i < stack->actualsize)
-	{
-		j = i - 1;
-		while (j >= 0 && tmp[j] > stack->stack[i])
-		{
-			tmp[j + 1] = tmp[j];
-			j--;
-		}
-		tmp[j + 1] = stack->stack[i];
-		i++;
-	}
-	tmp[stack->actualsize] = '\0';
+	nm = 0;
 	i = 0;
-	while (i < stack->actualsize)
+	while (j < argc - 1)
 	{
-		if (tmp[i] == tmp[i + 1])
-			return (1);
+		if (ft_digitss(argv[j + 1]))
+			ft_errorext();
+		nm = (int)ft_atoi_w_intlimit(argv[j + 1]);
+		stack1->stack[i] = nm;
 		i++;
+		j++;
 	}
-	return (0);
+	return (i);
 }
 
 int	ft_parse_input(char *str, t_stacks *stack1, int i, int j)
@@ -107,10 +98,8 @@ void	init_struct(t_stacks *stack1, t_stacks *stack2, int i)
 void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 {
 	int	i;
-	int	nm;
 	int	j;
 
-	nm = 0;
 	i = 0;
 	j = 0;
 	ft_bzero(stack1->stack, 10000);
@@ -122,17 +111,7 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 		j++;
 	}
 	if (argc > 2)
-	{
-		while (j < argc - 1)
-		{
-			if (ft_digitss(argv[j + 1]))
-				ft_errorext();
-			nm = (int)ft_atoi_w_intlimit(argv[j + 1]);
-			stack1->stack[i] = nm;
-			i++;
-			j++;
-		}
-	}
+		i = ft_parse_multi_input(argc, argv, j, stack1);
 	else if (argc == 2)
 		i = ft_parse_input(argv[j], stack1, 0, 0);
 	stack1->actualsize = i;

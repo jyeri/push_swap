@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 19:27:41 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/05/31 19:53:36 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:32:18 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,16 @@ int		ft_atoi_w_intlimit(const char *str);
 int		is_sorted(t_stacks *stack);
 int		doublecheck(t_stacks *stack, int i);
 int		ft_digitss(char *str);
+int		ft_parse_multi_input(int argc, char **argv, int j, t_stacks *stack1);
 //push_swap.c
+int		calc_chunk(t_stacks *stack1);
 int		solver(t_stacks *stack1, t_stacks *stack2);
 int		sort_b(t_stacks *stack1, t_stacks *stack2);
 int		sort_big_b(t_stacks *stack1, t_stacks *stack2);
 int		solversmall(t_stacks *stack1, t_stacks *stack2);
 int		sortsmallish(t_stacks *stack1, t_stacks *stack2, int low, int high);
-int		solver500plus(t_stacks *stack1, t_stacks *stack2);
+int		solver500plus(t_stacks *stack1, t_stacks *stack2, int i, int j);
+//int		solver500plus(t_stacks *stack1, t_stacks *stack2);
 //swap_funcs.c
 int		get_top(t_stacks *stack, int qmed);
 int		get_bottom(t_stacks *stack1, int qmed);
