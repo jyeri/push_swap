@@ -6,12 +6,11 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 18:52:33 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/05/31 20:01:04 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:55:46 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-#include "stdio.h"
 
 void	swap(t_stacks *stack)
 {

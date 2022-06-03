@@ -6,12 +6,11 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 18:52:52 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/01 16:24:16 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:56:20 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-#include <stdio.h>
 
 int	get_high(t_stacks *stack)
 {
