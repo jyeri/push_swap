@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 18:52:46 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/02 12:13:26 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:18:37 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 {
 	t_stacks	stack1;
 	t_stacks	stack2;
-	int			total;
 	int			chunksize;
 
 	if (argc > 1)
@@ -45,7 +44,6 @@ int	main(int argc, char **argv)
 				solver500plus(&stack1, &stack2, chunksize, 0);
 			}
 		}
-		total = stack1.ainst + stack2.ainst;
 	}
 	return (0);
 }

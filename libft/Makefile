@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrummuka <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/03 17:32:08 by jrummuka          #+#    #+#              #
-#    Updated: 2021/11/03 17:33:41 by jrummuka         ###   ########.fr        #
+#    Updated: 2022/06/06 15:17:12 by jrummuka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ BONUS_OBJS		= $(BONUS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -g -I.
+CFLAGS			= -Wall -Wextra -Werror -I.
 
 NAME			= libft.a
 

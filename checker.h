@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 19:27:41 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/01 17:32:18 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:58:43 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
-# include <stdlib.h>
 
 typedef struct s_stacks
 {

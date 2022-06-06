@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 19:33:19 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/01 17:25:34 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:18:51 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	from_bottom(t_stacks *stack1, t_stacks *stack2, int top, int bottom)
 
 int	get_big_median(t_stacks *stack, int size)
 {
-	int	tmp[1000];
+	int	tmp[10000];
 	int	i;
 	int	j;
 	int	med;
@@ -116,12 +116,10 @@ int	solver500plus(t_stacks *stack1, t_stacks *stack2, int chunksize, int pushed)
 
 int	sort_big_b(t_stacks *stack1, t_stacks *stack2)
 {
-	int	pushed;
 	int	high;
 	int	top;
 	int	bottom;
 
-	pushed = 0;
 	while (stack2->actualsize > 0)
 	{
 		high = get_high(stack2);
