@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 18:52:21 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/03 13:53:14 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:54:24 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	ft_parse_multi_input(int argc, char **argv, int j, t_stacks *stack1)
 
 	nm = 0;
 	i = 0;
-	while (j < argc - 1)
+	while (j < argc)
 	{
-		if (ft_digitss(argv[j + 1]))
+		if (ft_digitss(argv[j]))
 			ft_errorext();
-		nm = (int)ft_atoi_w_intlimit(argv[j + 1]);
+		nm = (int)ft_atoi_w_intlimit(argv[j]);
 		stack1->stack[i] = nm;
 		i++;
 		j++;
@@ -101,7 +101,7 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 	int	j;
 
 	i = 0;
-	j = 0;
+	j = 1;
 	ft_bzero(stack1->stack, 10000);
 	ft_bzero(stack2->stack, 10000);
 	stack1->visual = 0;
@@ -117,7 +117,7 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 	else if (argc == 2)
 		i = ft_parse_input(argv[j], stack1, 0, 0);
 	stack1->actualsize = i;
-	if (doublecheck(stack1, 0) != 0)
+	if (stack1->actualsize > 1 && doublecheck(stack1, 0) != 0)
 		ft_errorext();
 	init_struct(stack1, stack2, i);
 }
