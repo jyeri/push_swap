@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 19:32:26 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/06 15:16:22 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:23:14 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ int	solversmall(t_stacks *stack1, t_stacks *stack2)
 
 	low = get_low(stack1);
 	high = get_high(stack1);
-	if (stack1->actualsize < 4)
+	if (stack1->actualsize < 3 && is_sorted(stack1) != 0)
+		do_sa(stack1, stack2);
+	else if (stack1->actualsize < 4)
 		solvertiny(stack1, stack2, low, high);
 	else
 		sortsmallish(stack1, stack2, low, high);
