@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 19:20:37 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/05/31 19:47:40 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/08 20:03:47 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	sb(t_stacks *stack1, t_stacks *stack2)
 {
 	swap(stack2);
-	stack2->ainst++;
+	stack1->ainst++;
 	if (stack1->visual || stack2->visual)
 		print_stacks(stack1, stack2);
 	return (0);

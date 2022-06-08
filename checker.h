@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 19:27:41 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/06 14:58:43 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/08 20:01:02 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_stacks
 	int	actualsize;
 	int	ainst;
 	int	visual;
+	int	t;
 
 }	t_stacks;
 
@@ -81,5 +82,9 @@ void	ft_errorext(void);
 int		is_sorted(t_stacks *stack);
 int		int_len(int nm);
 int		ft_digitss(char *str);
+//bonus.c
+void	init_bonus(t_stacks *stack1,t_stacks *stack2);
+void	ft_bonus(t_stacks *stack1, t_stacks *stack2, char *str);
+void	printbonus(t_stacks *stack1, t_stacks *stack2);
 
 #endif

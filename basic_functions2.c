@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 19:20:17 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/05/31 19:20:33 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/08 20:03:41 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	rb(t_stacks *stack1, t_stacks *stack2)
 {
-	stack2->ainst++;
+	stack1->ainst++;
 	rotate(stack2);
 	if (stack1->visual || stack2->visual)
 		print_stacks(stack1, stack2);
@@ -42,7 +42,7 @@ int	rra(t_stacks *stack1, t_stacks *stack2)
 
 int	rrb(t_stacks *stack1, t_stacks *stack2)
 {
-	stack2->ainst++;
+	stack1->ainst++;
 	reverse_rotate(stack2);
 	if (stack1->visual || stack2->visual)
 		print_stacks(stack1, stack2);

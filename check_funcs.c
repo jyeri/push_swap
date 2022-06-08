@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 18:52:21 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/06 16:54:24 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:52:37 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,10 @@ void	init_stack(int argc, char **argv, t_stacks *stack1, t_stacks *stack2)
 	j = 1;
 	ft_bzero(stack1->stack, 10000);
 	ft_bzero(stack2->stack, 10000);
-	stack1->visual = 0;
-	stack2->visual = 0;
-	if (ft_strcmp(argv[1], "-v") == 0)
+	init_bonus(stack1, stack2);
+	if (!ft_strcmp(argv[1], "-v") || !ft_strcmp(argv[1], "-t"))
 	{
-		stack1->visual = 1;
-		stack2->visual = 1;
+		ft_bonus(stack1, stack2, argv[1]);
 		j++;
 	}
 	if (argc > 2)

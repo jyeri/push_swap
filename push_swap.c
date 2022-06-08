@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 18:52:46 by jrummuka          #+#    #+#             */
-/*   Updated: 2022/06/06 15:18:37 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/06/08 20:05:20 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	main(int argc, char **argv)
 				solver500plus(&stack1, &stack2, chunksize, 0);
 			}
 		}
+		if (stack1.t == 1 || stack2.t == 1)
+			printbonus(&stack1, &stack2);
 	}
 	return (0);
 }
